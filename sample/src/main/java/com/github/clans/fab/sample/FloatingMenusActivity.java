@@ -4,10 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
@@ -16,9 +16,9 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
-import com.github.fab.sample.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.github.fab.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,10 +145,19 @@ public class FloatingMenusActivity extends AppCompatActivity {
             }
         });
 
-        createCustomAnimation();
+        createMenu2CustomAnimation();
+        createMenu3CustomAnimation();
     }
 
-    private void createCustomAnimation() {
+    private void createMenu2CustomAnimation() {
+        final FloatingActionMenu menu2 = (FloatingActionMenu) findViewById(R.id.menu2);
+        final ValueAnimator animator = ObjectAnimator.ofFloat(menu2.getMenuIconView(), "alpha", 1.0f, 0.2f);
+        animator.setDuration(1500);
+
+        menu2.setIconToggleAnimator(animator);
+    }
+
+    private void createMenu3CustomAnimation() {
         final FloatingActionMenu menu3 = (FloatingActionMenu) findViewById(R.id.menu3);
 
         AnimatorSet set = new AnimatorSet();

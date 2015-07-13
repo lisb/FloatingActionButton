@@ -39,6 +39,7 @@ public class FloatingActionMenu extends ViewGroup {
     private AnimatorSet mOpenAnimatorSet = new AnimatorSet();
     private AnimatorSet mCloseAnimatorSet = new AnimatorSet();
     private AnimatorSet mIconToggleSet;
+    private ValueAnimator mIconToggleAnimator;
 
     private int mButtonSpacing = Util.dpToPx(getContext(), 0f);
     private FloatingActionButton mMenuButton;
@@ -590,7 +591,9 @@ public class FloatingActionMenu extends ViewGroup {
             }
 
             if (mIconAnimated) {
-                if (mIconToggleSet != null) {
+                if (mIconToggleAnimator != null) {
+                    mIconToggleAnimator.start();
+                } else if (mIconToggleSet != null) {
                     mIconToggleSet.start();
                 } else {
                     mCloseAnimatorSet.cancel();
@@ -640,7 +643,9 @@ public class FloatingActionMenu extends ViewGroup {
             }
 
             if (mIconAnimated) {
-                if (mIconToggleSet != null) {
+                if (mIconToggleAnimator != null) {
+                    mIconToggleAnimator.reverse();
+                } else if (mIconToggleSet != null) {
                     mIconToggleSet.start();
                 } else {
                     mCloseAnimatorSet.start();
@@ -742,10 +747,20 @@ public class FloatingActionMenu extends ViewGroup {
 
     public void setIconToggleAnimatorSet(AnimatorSet toggleAnimatorSet) {
         mIconToggleSet = toggleAnimatorSet;
+        mIconToggleAnimator = null;
     }
 
     public AnimatorSet getIconToggleAnimatorSet() {
         return mIconToggleSet;
+    }
+
+    public void setIconToggleAnimator(ValueAnimator iconToggleAnimator) {
+        mIconToggleAnimator = iconToggleAnimator;
+        mIconToggleSet = null;
+    }
+
+    public ValueAnimator getIconToggleAnimator() {
+        return mIconToggleAnimator;
     }
 
     public void setMenuButtonShowAnimation(Animation showAnimation) {
