@@ -93,8 +93,14 @@ afterEvaluate { project ->
     }
 
     task androidJavadocs(type: Javadoc) {
+        failOnError false
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        android.libraryVariants.all { variant ->
+            if (variant.name == 'release') {
+                owner.classpath += variant.javaCompiler.classpath
+            }
+        }
     }
 
     task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
