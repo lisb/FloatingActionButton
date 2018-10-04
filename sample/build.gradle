@@ -8,8 +8,8 @@ android {
         applicationId "com.github.fab.sample"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode Integer.parseInt(project.VERSION_CODE)
-        versionName project.VERSION_NAME
+        versionCode 1
+        versionName "1"
     }
     buildTypes {
         release {
